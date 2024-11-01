@@ -21,6 +21,17 @@ const SAMPLE_PALETTES: ColorPalette[] = [
   { id: '3', colors: ['#2D00F7', '#6A00F4', '#8900F2', '#A100F2'], category: 'cold' },
 ];
 
+// Color name to hex mapping
+const COLOR_NAMES: { [key: string]: string[] } = {
+  red: ['#FF0000', '#FF6B6B', '#FF4444', '#FF6666'],
+  blue: ['#0000FF', '#4ECDC4', '#45B7D1', '#2D00F7'],
+  yellow: ['#FFFF00', '#FFBE0B', '#FFD700'],
+  green: ['#00FF00', '#96CEB4', '#4ECDC4'],
+  purple: ['#800080', '#8338EC', '#6A00F4', '#8900F2'],
+  orange: ['#FFA500', '#FB5607', '#FF6B6B'],
+  pink: ['#FFC0CB', '#FF006E', '#FF69B4'],
+};
+
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,10 +49,24 @@ const Index = () => {
   const filteredPalettes = useMemo(() => {
     return palettes.filter((palette) => {
       const matchesCategory = !selectedCategory || palette.category === selectedCategory;
-      const matchesSearch = !searchTerm || palette.colors.some(color => 
-        color.toLowerCase().includes(searchTerm.toLowerCase())
+      const searchTermLower = searchTerm.toLowerCase();
+      
+      // Check if search term matches a color name
+      const matchesColorName = Object.entries(COLOR_NAMES).some(([name, hexCodes]) => {
+        if (name.includes(searchTermLower)) {
+          return palette.colors.some(color => 
+            hexCodes.some(hex => color.toLowerCase().includes(hex.toLowerCase()))
+          );
+        }
+        return false;
+      });
+
+      // Check if search term matches hex code
+      const matchesHex = palette.colors.some(color => 
+        color.toLowerCase().includes(searchTermLower)
       );
-      return matchesCategory && matchesSearch;
+
+      return matchesCategory && (searchTerm === '' || matchesHex || matchesColorName);
     });
   }, [palettes, selectedCategory, searchTerm]);
 
@@ -64,7 +89,7 @@ const Index = () => {
                 <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                   type="search"
-                  placeholder="Search by color (e.g., #FF0000)"
+                  placeholder="Search by color name or hex (e.g., blue, #FF0000)"
                   className="pl-8"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}

@@ -22,7 +22,7 @@ export const Sidebar = ({
       <Button
         variant="outline"
         size="icon"
-        className="fixed top-4 left-4 z-50 lg:hidden"
+        className="fixed top-4 right-4 z-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Menu className="h-4 w-4" />
@@ -32,7 +32,7 @@ export const Sidebar = ({
         "fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-md p-4 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="space-y-4">
+        <div className="space-y-4 mt-16 lg:mt-0">
           <h2 className="text-lg font-semibold">Categories</h2>
           <div className="space-y-2">
             <button
