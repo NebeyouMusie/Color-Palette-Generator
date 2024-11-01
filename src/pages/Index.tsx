@@ -2,8 +2,9 @@ import { useState, useMemo } from 'react';
 import { PaletteGrid } from '@/components/PaletteGrid';
 import { Sidebar } from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { generateRandomPalette } from '@/lib/colorUtils';
-import { Palette, Shuffle } from 'lucide-react';
+import { Palette, Shuffle, Search } from 'lucide-react';
 import { ColorPalette, Category } from '@/types';
 
 const SAMPLE_CATEGORIES: Category[] = [
@@ -50,7 +51,6 @@ const Index = () => {
         categories={SAMPLE_CATEGORIES}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
-        onSearch={setSearchTerm}
       />
       <div className="flex-1">
         <header className="bg-white shadow-sm p-4 lg:p-6 mt-16 lg:mt-0">
@@ -59,13 +59,25 @@ const Index = () => {
               <Palette className="h-6 w-6" />
               <h1 className="text-xl lg:text-2xl font-bold">Color Palette Generator</h1>
             </div>
-            <Button
-              onClick={handleRandomPalette}
-              className="flex items-center space-x-2 w-full lg:w-auto"
-            >
-              <Shuffle className="h-4 w-4" />
-              <span>Random Palette</span>
-            </Button>
+            <div className="flex w-full lg:w-auto items-center gap-2">
+              <div className="relative flex-1 lg:w-64">
+                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  type="search"
+                  placeholder="Search by color (e.g., #FF0000)"
+                  className="pl-8"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <Button
+                onClick={handleRandomPalette}
+                className="flex items-center space-x-2 whitespace-nowrap"
+              >
+                <Shuffle className="h-4 w-4" />
+                <span>Random Palette</span>
+              </Button>
+            </div>
           </div>
         </header>
         <main className="max-w-7xl mx-auto p-4">

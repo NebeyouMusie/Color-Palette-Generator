@@ -8,7 +8,7 @@ interface ColorPaletteProps {
 }
 
 export const ColorPalette = ({ palette }: ColorPaletteProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredColor, setHoveredColor] = useState<string | null>(null);
 
   const handleColorClick = async (color: string) => {
     const success = await copyToClipboard(color);
@@ -18,21 +18,19 @@ export const ColorPalette = ({ palette }: ColorPaletteProps) => {
   };
 
   return (
-    <div 
-      className="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in">
       <div className="flex h-32">
         {palette.colors.map((color, index) => (
           <div
             key={`${palette.id}-${index}`}
-            className="color-swatch flex-1"
+            className="relative flex-1 cursor-pointer transition-transform hover:scale-105"
             style={{ backgroundColor: color }}
             onClick={() => handleColorClick(color)}
+            onMouseEnter={() => setHoveredColor(color)}
+            onMouseLeave={() => setHoveredColor(null)}
           >
-            {isHovered && (
-              <div className="color-swatch-tooltip">
+            {hoveredColor === color && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-sm font-medium">
                 {color.toUpperCase()}
               </div>
             )}

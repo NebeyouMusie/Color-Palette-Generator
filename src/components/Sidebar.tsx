@@ -1,6 +1,5 @@
 import { Category } from '@/types';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { Button } from './ui/button';
@@ -9,14 +8,12 @@ interface SidebarProps {
   categories: Category[];
   selectedCategory: string | null;
   onSelectCategory: (category: string | null) => void;
-  onSearch: (term: string) => void;
 }
 
 export const Sidebar = ({
   categories,
   selectedCategory,
   onSelectCategory,
-  onSearch,
 }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,13 +33,6 @@ export const Sidebar = ({
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="space-y-4">
-          <Input
-            type="search"
-            placeholder="Search palettes..."
-            className="w-full"
-            onChange={(e) => onSearch(e.target.value)}
-          />
-          
           <h2 className="text-lg font-semibold">Categories</h2>
           <div className="space-y-2">
             <button
