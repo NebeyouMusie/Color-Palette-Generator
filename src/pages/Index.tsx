@@ -4,8 +4,9 @@ import { Sidebar } from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { generateRandomPalette } from '@/lib/colorUtils';
-import { Palette, Shuffle, Search } from 'lucide-react';
+import { Palette, Shuffle, Search, Moon, Sun } from 'lucide-react';
 import { ColorPalette, Category } from '@/types';
+import { useTheme } from '@/components/theme-provider';
 
 const SAMPLE_CATEGORIES: Category[] = [
   { id: 'pastel', name: 'Pastel' },
@@ -33,6 +34,7 @@ const COLOR_NAMES: { [key: string]: string[] } = {
 };
 
 const Index = () => {
+  const { theme, setTheme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [palettes, setPalettes] = useState<ColorPalette[]>(SAMPLE_PALETTES);
@@ -71,14 +73,14 @@ const Index = () => {
   }, [palettes, selectedCategory, searchTerm]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-background flex flex-col lg:flex-row">
       <Sidebar
         categories={SAMPLE_CATEGORIES}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
       <div className="flex-1">
-        <header className="bg-white shadow-sm p-4 lg:p-6 mt-16 lg:mt-0">
+        <header className="bg-card shadow-sm p-4 lg:p-6 mt-16 lg:mt-0">
           <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto gap-4">
             <div className="flex items-center space-x-2">
               <Palette className="h-6 w-6" />
@@ -101,6 +103,17 @@ const Index = () => {
               >
                 <Shuffle className="h-4 w-4" />
                 <span>Random Palette</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                {theme === "light" ? (
+                  <Moon className="h-4 w-4" />
+                ) : (
+                  <Sun className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>

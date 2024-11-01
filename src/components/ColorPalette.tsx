@@ -18,7 +18,7 @@ export const ColorPalette = ({ palette }: ColorPaletteProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in">
+    <div className="bg-card rounded-lg shadow-md overflow-hidden animate-fade-in transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1">
       <div className="flex h-32">
         {palette.colors.map((color, index) => (
           <div
