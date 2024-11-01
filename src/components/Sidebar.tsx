@@ -29,7 +29,7 @@ export const Sidebar = ({
       </Button>
 
       <div className={cn(
-        "fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-md p-4 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static",
+        "fixed inset-y-0 left-0 z-40 w-64 bg-background border-r shadow-md p-4 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="space-y-4 mt-16 lg:mt-0">
@@ -40,8 +40,8 @@ export const Sidebar = ({
               className={cn(
                 "w-full text-left px-4 py-2 rounded-md transition-colors",
                 selectedCategory === null
-                  ? "bg-primary text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted"
               )}
             >
               All Palettes
@@ -53,8 +53,8 @@ export const Sidebar = ({
                 className={cn(
                   "w-full text-left px-4 py-2 rounded-md transition-colors",
                   selectedCategory === category.id
-                    ? "bg-primary text-white"
-                    : "hover:bg-gray-100"
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-muted"
                 )}
               >
                 {category.name}
