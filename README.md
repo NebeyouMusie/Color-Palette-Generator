@@ -1,4 +1,4 @@
-# Welcome to your GPT Engineer project
+# Color Palette Generator
 
 ## Project info
 
