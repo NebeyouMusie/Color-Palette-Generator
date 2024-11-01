@@ -4,9 +4,8 @@ import { Sidebar } from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { generateRandomPalette } from '@/lib/colorUtils';
-import { Palette, Shuffle, Search, Moon, Sun } from 'lucide-react';
+import { Palette, Shuffle, Search } from 'lucide-react';
 import { ColorPalette, Category } from '@/types';
-import { useTheme } from '@/components/theme-provider';
 
 const SAMPLE_CATEGORIES: Category[] = [
   { id: 'pastel', name: 'Pastel' },
@@ -34,7 +33,6 @@ const COLOR_NAMES: { [key: string]: string[] } = {
 };
 
 const Index = () => {
-  const { theme, setTheme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [palettes, setPalettes] = useState<ColorPalette[]>(SAMPLE_PALETTES);
@@ -103,17 +101,6 @@ const Index = () => {
               >
                 <Shuffle className="h-4 w-4" />
                 <span>Random Palette</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              >
-                {theme === "light" ? (
-                  <Moon className="h-4 w-4" />
-                ) : (
-                  <Sun className="h-4 w-4" />
-                )}
               </Button>
             </div>
           </div>

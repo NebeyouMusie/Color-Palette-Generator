@@ -22,7 +22,7 @@ export const Sidebar = ({
 
   return (
     <>
-      <div className="fixed top-4 right-4 flex items-center gap-2 z-50 lg:hidden">
+      <div className="fixed top-4 left-4 z-50 lg:hidden">
         <Button
           variant="outline"
           size="icon"
@@ -34,14 +34,16 @@ export const Sidebar = ({
             <Sun className="h-4 w-4" />
           )}
         </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <Menu className="h-4 w-4" />
-        </Button>
       </div>
+      
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed top-4 right-4 z-50 lg:hidden"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Menu className="h-4 w-4" />
+      </Button>
 
       <div className={cn(
         "fixed inset-y-0 left-0 z-40 w-64 bg-background border-r shadow-md p-4 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static",
